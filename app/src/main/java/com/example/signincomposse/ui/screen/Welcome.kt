@@ -2,6 +2,7 @@ package com.example.signincomposse.ui.screen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -21,12 +22,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.signincomposse.R
-import com.example.signincomposse.ui.navigation.Navigation
 import com.example.signincomposse.ui.theme.MainColor
 
-@Preview(name = "preview")
 @Composable
-fun WelcomeScreen() {
+fun WelcomeScreen(
+    navigationSignIn: () -> Unit,
+    navigationSignUp: () -> Unit
+) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -57,7 +59,7 @@ fun WelcomeScreen() {
                 modifier = Modifier.padding(top = 20.dp)
             )
             Button(
-                onClick = { },
+                onClick = { navigationSignUp.invoke()},
                 shape = RoundedCornerShape(15.dp),
                 colors = ButtonDefaults.buttonColors(MainColor),
                 modifier = Modifier
@@ -72,7 +74,7 @@ fun WelcomeScreen() {
             Text(text = "Sign in",
                 color = MainColor,
                 fontSize = 24.sp,
-                modifier = Modifier.padding(top = 30.dp)
+                modifier = Modifier.padding(top = 30.dp).clickable { navigationSignIn.invoke() }
             )
         }
     }

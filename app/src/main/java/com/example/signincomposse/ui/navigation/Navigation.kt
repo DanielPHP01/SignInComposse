@@ -5,6 +5,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.signincomposse.objects.ScreenConstants
+import com.example.signincomposse.ui.screen.Detail
+import com.example.signincomposse.ui.screen.SignInScreen
+import com.example.signincomposse.ui.screen.SignUpScreen
 import com.example.signincomposse.ui.screen.WelcomeScreen
 
 @Composable
@@ -13,8 +16,22 @@ fun Navigation() {
 
     NavHost(navController = navController, startDestination = ScreenConstants.WelcomeScreen.route) {
         composable(ScreenConstants.WelcomeScreen.route) {
-            WelcomeScreen()
+            WelcomeScreen(
+                navigationSignIn = { navController.navigate(ScreenConstants.SignInScreen.route) },
+                navigationSignUp = { navController.navigate(ScreenConstants.SignUpScreen.route) })
         }
-
+        composable(ScreenConstants.SignInScreen.route) {
+            SignInScreen(
+                navigationDetail = { navController.navigate(ScreenConstants.DetailScreen.route) }
+            )
+        }
+        composable(ScreenConstants.SignUpScreen.route) {
+            SignUpScreen(
+                navigationSignIn = { navController.navigate(ScreenConstants.SignInScreen.route) }
+            )
+        }
+        composable(ScreenConstants.DetailScreen.route){
+            Detail()
+        }
     }
 }
