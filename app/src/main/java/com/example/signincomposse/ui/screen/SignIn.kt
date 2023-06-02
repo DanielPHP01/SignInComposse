@@ -31,7 +31,7 @@ import com.example.signincomposse.ui.theme.TextFieldColorPlaceHolder
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SignInScreen(
-    navigationDetail: () -> Unit,
+    navigationSignUp: () -> Unit,
 ) {
     var text by remember {
         mutableStateOf("")
@@ -96,7 +96,7 @@ fun SignInScreen(
             keyboardActions = KeyboardActions(),
         )
         Button(
-            onClick = { navigationDetail.invoke() },
+            onClick = { navigationSignUp.invoke() },
             shape = RoundedCornerShape(15.dp),
             colors = ButtonDefaults.buttonColors(SignInColor),
             modifier = Modifier.padding(top = 140.dp),
