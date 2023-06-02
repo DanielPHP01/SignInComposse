@@ -8,17 +8,21 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.modifier.modifierLocalConsumer
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.signincomposse.R
 import com.example.signincomposse.ui.theme.SignInColor
+import com.example.signincomposse.ui.theme.TextFieldColorPlaceHolder
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Preview
@@ -27,39 +31,85 @@ fun SignInScreen() {
     var text by remember {
         mutableStateOf("")
     }
+    var password by remember {
+        mutableStateOf("")
+    }
 
-    Column(modifier = Modifier
-        .fillMaxSize()
-        .background(Color.White)
-    ) {
-        Row(modifier = Modifier
-            .fillMaxWidth()
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
             .background(Color.White)
-            .padding(top = 40.dp)) {
+            .padding(horizontal = 16.dp)
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(Color.White)
+                .padding(top = 40.dp)
+        ) {
             Text(
-                text = "Hello,\n" +
-                        "Welcome!",
+                text = "Hello,\n" + "Welcome!",
                 fontSize = 32.sp,
                 fontWeight = FontWeight.Bold,
-                modifier = Modifier.padding(top = 110.dp, start = 50.dp, end = 40.dp)
+                modifier = Modifier.padding(top = 100.dp, start = 50.dp, end = 40.dp)
 
             )
-            Image(painter = painterResource(id = R.drawable.illustration_2), contentDescription = "" )
+            Image(
+                painter = painterResource(id = R.drawable.illustration_2), contentDescription = ""
+            )
         }
-        TextField(value = text, onValueChange = {text = it}, colors =TextFieldDefaults.textFieldColors(placeholderColor = Color.White), modifier = Modifier.background(
-            Color.White)
+        TextField(
+            value = text,
+            onValueChange = { text = it },
+            colors = TextFieldDefaults.textFieldColors(containerColor = Color.White),
+            placeholder = {
+                Text(
+                    text = "Phone Number or Email",
+                    color = TextFieldColorPlaceHolder
+                )
+            },
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 40.dp),
+        )
+        TextField(
+            value = password,
+            onValueChange = { password = it },
+            colors = TextFieldDefaults.textFieldColors(containerColor = Color.White),
+            placeholder = {
+                Text(
+                    text = "Password",
+                    color = TextFieldColorPlaceHolder
+                )
+            },
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 40.dp),
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password)
         )
         Button(
             onClick = { },
             shape = RoundedCornerShape(15.dp),
             colors = ButtonDefaults.buttonColors(SignInColor),
-            modifier = Modifier
-                .padding(top = 120.dp)
-        ) {
+            modifier = Modifier.padding(top = 140.dp),
+
+            ) {
             Text(
                 text = "Sign in",
                 fontSize = 40.sp,
             )
         }
+        Text(
+            text = "or Sign in with",
+            color = TextFieldColorPlaceHolder,
+            fontSize = 20.sp,
+            modifier = Modifier.padding(top = 20.dp, start = 10.dp)
+        )
+        Image(
+            painter = painterResource(id = R.drawable.social_media),
+            contentDescription = "",
+            modifier =Modifier.padding(40.dp)
+        )
+
     }
 }
